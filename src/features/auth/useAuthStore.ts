@@ -7,11 +7,23 @@ type AuthState = {
   logout: () => void;
 };
 
+const storedToken = localStorage.getItem('token');
+
 export const useAuthStore = create<AuthState>((set) => ({
-  token: null,
-  isAuthenticated: false,
-  setToken: (token) =>
-    set({ token, isAuthenticated: !!token }),
-  logout: () =>
-    set({ token: null, isAuthenticated: false }),
+  token: storedToken,
+  isAuthenticated: !!storedToken,
+
+  setToken: (token) => {
+    if (token) {
+      localStorage.setItem('token', token);
+    } else {
+      localStorage.removeItem('token');
+    }
+    set({ token, isAuthenticated: !!token });
+  },
+
+  logout: () => {
+    localStorage.removeItem('token');
+    set({ token: null, isAuthenticated: false });
+  },
 }));

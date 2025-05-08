@@ -1,54 +1,83 @@
-# React + TypeScript + Vite
+# 🛍️ FakeStore App (React + Zustand + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación de consumo de productos desde la API de [FakeStore](https://fakestoreapi.com), que permite autenticación de usuario, navegación protegida y visualización de productos con sus detalles.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologías usadas
 
-## Expanding the ESLint configuration
+- ⚛️ **React 19** + **TypeScript**
+- ⚡ **Vite**
+- 📦 **Zustand** (manejo de estado)
+- 🎯 **React Hook Form** + **Zod** (validación de formularios)
+- 🧭 **React Router DOM**
+- 💨 **Tailwind CSS**
+- 🔐 Persistencia con `localStorage`
+- 🌐 API externa: [fakestoreapi.com](https://fakestoreapi.com)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 📱 Funcionalidades
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### ✅ Login
+- Autenticación con nombre de usuario y contraseña
+- Llamada a `POST /auth/login`
+- Manejo de errores y validación de campos
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 🛒 Listado de productos
+- Carga de productos desde `GET /products`
+- Manejo de estados de carga y error
+- Vista en grilla responsiva
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### 🔍 Detalle de producto
+- Navegación a `/product/:id`
+- Carga por ID directo desde `GET /products/:id`
+- Renderizado protegido contra acceso sin datos
+
+### 🔐 Rutas protegidas
+- Acceso bloqueado si no hay token válido
+- Redirección automática a `/login`
+
+---
+
+## 📂 Estructura de carpetas
+
+src/
+│
+├── api/ # Llamadas a la API externa
+├── components/ # Componentes reutilizables
+├── features/
+│ ├── auth/ # Login y auth store
+│ └── products/ # Product list, details y store
+├── pages/ # Rutas protegidas
+├── App.tsx # Routing principal
+└── main.tsx # Entry point
+
+
+---
+
+## ⚙️ Configuración de entorno
+
+El proyecto usa variables de entorno definidas en `.env`:
+
+### 🧪 `.env.example`
+
+```env
+VITE_API_URL=https://fakestoreapi.com
+
+git clone https://github.com/Paisa224/react-fakestore-web.git
+cd react-fakestore-web
+
+# Instalación
+npm install
+
+# Crea tu archivo .env basado en .env.example
+cp .env.example .env
+
+# Correr la app
+npm run dev
+
+👤 Autor
+Manuel Salinas
+🔗 GitHub: https://github.com/Paisa224
+💼 Desarrollador Web Fullstack

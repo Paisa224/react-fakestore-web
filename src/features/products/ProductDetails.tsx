@@ -1,17 +1,30 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useProductStore } from './useProductStore'
 import { ArrowLeft } from 'lucide-react'
+import Loader from '../../components/Loader'
+import ErrorMessage from '../../components/ErrorMessage'
 
 export default function ProductDetails() {
-  const product = useProductStore((s) => s.selectedProduct)
+  const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (!product) navigate('/')
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [product, navigate])
+  const {
+    selectedProduct: product,
+    fetchProductById,
+    loading,
+    error,
+  } = useProductStore()
 
+  useEffect(() => {
+    if (!product || product.id !== Number(id)) {
+      if (id) fetchProductById(Number(id))
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [id, product, fetchProductById])
+
+  if (loading) return <Loader />
+  if (error) return <ErrorMessage message={error} onRetry={() => fetchProductById(Number(id))} />
   if (!product) return null
 
   return (

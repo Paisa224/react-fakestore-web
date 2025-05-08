@@ -16,3 +16,9 @@ export const getProducts = async () => {
   if (!res.ok) throw new Error('Error al cargar productos')
   return res.json()
 }
+
+export const getProductById = async (id: number) => {
+  const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+  if (!res.ok) throw new Error('No se pudo cargar el producto');
+  return res.json();
+};

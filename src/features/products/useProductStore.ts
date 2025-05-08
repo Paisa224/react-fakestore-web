@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { getProducts } from '../../api/fakestore'
+import { getProducts, getProductById } from '../../api/fakestore'
 
 export type Product = {
   id: number
@@ -15,6 +15,7 @@ type ProductState = {
   error: string | null
   selectedProduct: Product | null
   fetchProducts: () => Promise<void>
+  fetchProductById: (id: number) => Promise<void> 
   setSelectedProduct: (product: Product) => void
 }
 
@@ -29,6 +30,16 @@ export const useProductStore = create<ProductState>((set) => ({
     try {
       const data = await getProducts()
       set({ products: data, loading: false })
+    } catch (error) {
+      set({ error: (error as Error).message, loading: false })
+    }
+  },
+
+  fetchProductById: async (id) => {
+    set({ loading: true, error: null })
+    try {
+      const data = await getProductById(id)
+      set({ selectedProduct: data, loading: false })
     } catch (error) {
       set({ error: (error as Error).message, loading: false })
     }

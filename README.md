@@ -20,9 +20,15 @@ Aplicación de consumo de productos desde la API de [FakeStore](https://fakestor
 ## 📱 Funcionalidades
 
 ### ✅ Login
-- Autenticación con nombre de usuario y contraseña
-- Llamada a `POST /auth/login`
-- Manejo de errores y validación de campos
+- Autenticación con nombre de usuario y contraseña  
+- Llamada a `POST /auth/login`  
+- Manejo de errores y validación de campos  
+
+**Credenciales de prueba:**
+```txt
+Usuario: mor_2314
+Contraseña: 83r5^_
+```
 
 ### 🛒 Listado de productos
 - Carga de productos desde `GET /products`
@@ -52,9 +58,7 @@ src/
 ├── pages/       # Rutas protegidas
 ├── App.tsx      # Routing principal
 └── main.tsx     # Entry point
-
-
-
+```
 ---
 
 ## ⚙️ Configuración de entorno
@@ -77,6 +81,7 @@ cp .env.example .env
 
 # Correr la app
 npm run dev
+```
 
 👤 Autor
 Manuel Salinas
